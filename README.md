@@ -1,4 +1,4 @@
-# Interview Persona Bot
+# AI Interview Agent
 
 An AI chatbot that coaches you for **AI Product Manager**, **Forward Deployed Engineer** and **AI Researcher** interviews. Each role has its own persona, prompts, suggestions, separate conversation and a subtly different colour theme.
 

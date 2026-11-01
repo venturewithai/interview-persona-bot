@@ -29,7 +29,7 @@ function renderGate(error = '') {
     <main class="gate">
       <form class="card gate-card" id="gate-form">
         <div class="logo">◈</div>
-        <h1>Interview Persona Bot</h1>
+        <h1>AI Interview Agent</h1>
         <p class="muted">Prep for AI roles with a coach tuned to each one. Enter your Gemini API key to begin.</p>
         <label for="key">Gemini API key</label>
         <input id="key" type="password" autocomplete="off" spellcheck="false" placeholder="AIza…" required />
@@ -64,7 +64,7 @@ function renderChat() {
   app.innerHTML = `
     <div class="shell">
       <header class="top">
-        <div class="brand"><span class="logo sm">◈</span> Interview Persona Bot</div>
+        <div class="brand">AI Interview Agent</div>
         <button class="btn ghost" id="logout" title="Remove saved key">Change API key</button>
       </header>
       <nav class="tabs" id="tabs" role="tablist">
