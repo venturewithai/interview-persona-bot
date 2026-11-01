@@ -2,6 +2,39 @@ import { MODEL } from './personas.js';
 
 const BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 
+async function apiError(res) {
+  let msg = `Request failed (${res.status})`;
+  try {
+    const j = await res.json();
+    if (j?.error?.message) msg = j.error.message;
+  } catch {}
+  const err = new Error(msg);
+  err.status = res.status;
+  return err;
+}
+
+/** One-shot call that returns parsed JSON (used by the quiz generator). */
+export async function generateJson({ apiKey, system, prompt, signal }) {
+  const res = await fetch(`${BASE}/${MODEL}:generateContent`, {
+    method: 'POST',
+    signal,
+    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: system }] },
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.9, responseMimeType: 'application/json' },
+    }),
+  });
+  if (!res.ok) throw await apiError(res);
+  const j = await res.json();
+  const text = (j?.candidates?.[0]?.content?.parts ?? []).map((p) => p.text ?? '').join('');
+  try {
+    return JSON.parse(text.replace(/^```(?:json)?\s*|\s*```$/g, ''));
+  } catch {
+    throw new Error('The model returned an unreadable quiz. Please try again.');
+  }
+}
+
 /**
  * Streams a Gemini response. Calls onToken with each text chunk.
  * `history` is [{role: 'user'|'model', text}].
@@ -18,16 +51,7 @@ export async function streamChat({ apiKey, system, history, onToken, signal }) {
     }),
   });
 
-  if (!res.ok) {
-    let msg = `Request failed (${res.status})`;
-    try {
-      const j = await res.json();
-      if (j?.error?.message) msg = j.error.message;
-    } catch {}
-    const err = new Error(msg);
-    err.status = res.status;
-    throw err;
-  }
+  if (!res.ok) throw await apiError(res);
 
   const reader = res.body.getReader();
   const decoder = new TextDecoder();

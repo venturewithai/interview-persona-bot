@@ -8,6 +8,7 @@ If the user's request is vague, offer a mock interview, a question bank, or a fe
 export const PERSONAS = {
   pm: {
     id: 'pm',
+    topics: ["Product sense", "AI metrics & evals", "Build vs. buy", "RAG vs. fine-tuning", "Responsible AI", "AI strategy & GTM"],
     label: 'AI Product Manager',
     short: 'AI PM',
     icon: '◈',
@@ -25,6 +26,7 @@ Role: AI Product Manager. Cover: product sense and design for AI-native products
   },
   fde: {
     id: 'fde',
+    topics: ["Customer discovery", "RAG & agents", "Production debugging", "Integration design", "Security & deployment", "Stakeholder communication"],
     label: 'Forward Deployed Engineer',
     short: 'FDE',
     icon: '⬢',
@@ -42,6 +44,7 @@ Role: Forward Deployed Engineer (customer-embedded engineer for an AI company). 
   },
   researcher: {
     id: 'researcher',
+    topics: ["Transformers", "Optimization", "RLHF / DPO", "Experiment design", "Scaling laws", "Probability & stats"],
     label: 'AI Researcher',
     short: 'Researcher',
     icon: '∴',

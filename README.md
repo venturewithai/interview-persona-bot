@@ -13,3 +13,6 @@ npm run build   # production build in dist/
 ```
 
 The model id is set in `src/personas.js` (`MODEL`); role prompts live in the same file.
+
+## Quiz mode
+Switch **Chat → Quiz** (per role). Pick a topic, difficulty (Easy/Medium/Hard) and length (5/10); Gemini writes role-specific multiple-choice questions as JSON. Answer by click or keys A–D, see instant feedback with explanations, then a scored review (retry the same questions or start a new quiz). Quiz progress is kept per role while you switch tabs.
